@@ -1,0 +1,157 @@
+const Alexa = require('ask-sdk-core');
+
+const KIETOverviewIntentHandler = {
+    canHandle(handlerInput) {
+        return Alexa.getRequestType(handlerInput.requestEnvelope) === 'IntentRequest'
+            && Alexa.getIntentName(handlerInput.requestEnvelope) === 'KIETOverviewIntent';
+    },
+    handle(handlerInput) {
+        const speechText = 'Krishna Institute of Engineering and Technology, KIET, is located in Ghaziabad, Uttar Pradesh, India. Established in 1998, it offers a variety of undergraduate and postgraduate programs. It is affiliated with Dr. A.P.J. Abdul Kalam Technical University and is known for its strong academic environment and placement record.';
+        
+        return handlerInput.responseBuilder
+            .speak(speechText)
+            .reprompt('Would you like to know more about a specific department or other aspects of KIET?')
+            .getResponse();
+    }
+};
+
+const DepartmentInfoIntentHandler = {
+    canHandle(handlerInput) {
+        return Alexa.getRequestType(handlerInput.requestEnvelope) === 'IntentRequest'
+            && Alexa.getIntentName(handlerInput.requestEnvelope) === 'DepartmentInfoIntent';
+    },
+    handle(handlerInput) {
+        const department = handlerInput.requestEnvelope.request.intent.slots.Department.value;
+        let speechText = '';
+        
+        switch(department.toLowerCase()) {
+            case 'computer science':
+                speechText = 'The Computer Science department at KIET focuses on modern technologies and software development.';
+                break;
+            case 'information technology':
+                speechText = 'The Information Technology department offers courses in software development, networking, and more.';
+                break;
+            case 'mechanical engineering':
+                speechText = 'The Mechanical Engineering department deals with design, manufacturing, and maintenance of mechanical systems.';
+                break;
+            case 'civil engineering':
+                speechText = 'The Civil Engineering department specializes in structural engineering, construction, and environmental engineering.';
+                break;
+            case 'electronics and communication':
+                speechText = 'The Electronics and Communication department is known for its work in communication systems and electronics.';
+                break;
+            default:
+                speechText = 'I am not familiar with that department. Please ask about another department.';
+        }
+        
+        return handlerInput.responseBuilder
+            .speak(speechText)
+            .reprompt('Would you like information about another department or something else?')
+            .getResponse();
+    }
+};
+
+const CampusFacilitiesIntentHandler = {
+    canHandle(handlerInput) {
+        return Alexa.getRequestType(handlerInput.requestEnvelope) === 'IntentRequest'
+            && Alexa.getIntentName(handlerInput.requestEnvelope) === 'CampusFacilitiesIntent';
+    },
+    handle(handlerInput) {
+        const speechText = 'KIET offers various campus facilities including modern classrooms, laboratories, a library, hostels, sports facilities, and recreational areas.';
+        
+        return handlerInput.responseBuilder
+            .speak(speechText)
+            .reprompt('Would you like more information on campus facilities or other aspects of KIET?')
+            .getResponse();
+    }
+};
+
+const StudentLifeIntentHandler = {
+    canHandle(handlerInput) {
+        return Alexa.getRequestType(handlerInput.requestEnvelope) === 'IntentRequest'
+            && Alexa.getIntentName(handlerInput.requestEnvelope) === 'StudentLifeIntent';
+    },
+    handle(handlerInput) {
+        const speechText = 'Student life at KIET is vibrant with various clubs, societies, and activities. Students participate in sports, cultural events, and technical fests.';
+        
+        return handlerInput.responseBuilder
+            .speak(speechText)
+            .reprompt('Would you like to know more about student life or any other aspect of KIET?')
+            .getResponse();
+    }
+};
+
+const AdmissionInfoIntentHandler = {
+    canHandle(handlerInput) {
+        return Alexa.getRequestType(handlerInput.requestEnvelope) === 'IntentRequest'
+            && Alexa.getIntentName(handlerInput.requestEnvelope) === 'AdmissionInfoIntent';
+    },
+    handle(handlerInput) {
+        const speechText = 'To apply for admission at KIET, you need to fill out the application form available on their official website. Admission is based on entrance exams and previous academic performance.';
+        
+        return handlerInput.responseBuilder
+            .speak(speechText)
+            .reprompt('Would you like more details about the admission process or other aspects of KIET?')
+            .getResponse();
+    }
+};
+
+const HelpIntentHandler = {
+    canHandle(handlerInput) {
+        return Alexa.getRequestType(handlerInput.requestEnvelope) === 'IntentRequest'
+            && Alexa.getIntentName(handlerInput.requestEnvelope) === 'AMAZON.HelpIntent';
+    },
+    handle(handlerInput) {
+        const speakOutput = 'You can ask me about KIET, its departments, campus facilities, student life, or admission information. How can I assist you today?';
+
+        return handlerInput.responseBuilder
+            .speak(speakOutput)
+            .reprompt(speakOutput)
+            .getResponse();
+    }
+};
+
+const CancelAndStopIntentHandler = {
+    canHandle(handlerInput) {
+        return Alexa.getRequestType(handlerInput.requestEnvelope) === 'IntentRequest'
+            && (Alexa.getIntentName(handlerInput.requestEnvelope) === 'AMAZON.CancelIntent'
+                || Alexa.getIntentName(handlerInput.requestEnvelope) === 'AMAZON.StopIntent');
+    },
+    handle(handlerInput) {
+        const speakOutput = 'Goodbye!';
+
+        return handlerInput.responseBuilder
+            .speak(speakOutput)
+            .getResponse();
+    }
+};
+
+const ErrorHandler = {
+    canHandle() {
+        return true;
+    },
+    handle(handlerInput, error) {
+        console.log(`Error handled: ${error.message}`);
+        const speakOutput = 'Sorry, I had trouble doing what you asked. Please try again.';
+
+        return handlerInput.responseBuilder
+            .speak(speakOutput)
+            .reprompt(speakOutput)
+            .getResponse();
+    }
+};
+
+exports.handler = Alexa.SkillBuilders.custom()
+    .addRequestHandlers(
+        KIETOverviewIntentHandler,
+        DepartmentInfoIntentHandler,
+        CampusFacilitiesIntentHandler,
+        StudentLifeIntentHandler,
+        AdmissionInfoIntentHandler,
+        HelpIntentHandler,
+        CancelAndStopIntentHandler
+    )
+    .addErrorHandlers(
+        ErrorHandler
+    )
+    .lambda();

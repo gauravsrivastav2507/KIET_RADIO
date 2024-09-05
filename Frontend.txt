@@ -1,0 +1,111 @@
+{
+    "interactionModel": {
+        "languageModel": {
+            "invocationName": "kiet radio",
+            "intents": [
+                {
+                    "name": "KIETOverviewIntent",
+                    "slots": [],
+                    "samples": [
+                        "tell me about KIET",
+                        "what is KIET",
+                        "give me an overview of KIET"
+                    ]
+                },
+                {
+                    "name": "DepartmentInfoIntent",
+                    "slots": [
+                        {
+                            "name": "Department",
+                            "type": "LIST_OF_DEPARTMENTS"
+                        }
+                    ],
+                    "samples": [
+                        "tell me about {Department} department",
+                        "what is the {Department} department known for",
+                        "give me details about the {Department} department"
+                    ]
+                },
+                {
+                    "name": "CampusFacilitiesIntent",
+                    "slots": [],
+                    "samples": [
+                        "what facilities are available on campus",
+                        "tell me about campus facilities",
+                        "give me information on campus amenities"
+                    ]
+                },
+                {
+                    "name": "StudentLifeIntent",
+                    "slots": [],
+                    "samples": [
+                        "what is student life like at KIET",
+                        "tell me about student activities",
+                        "give me details on student life at KIET"
+                    ]
+                },
+                {
+                    "name": "AdmissionInfoIntent",
+                    "slots": [],
+                    "samples": [
+                        "how do I apply for admission",
+                        "give me admission details",
+                        "what are the admission requirements"
+                    ]
+                },
+                {
+                    "name": "AMAZON.HelpIntent",
+                    "samples": [
+                        "help",
+                        "can you help me",
+                        "what can I ask"
+                    ]
+                },
+                {
+                    "name": "AMAZON.CancelIntent",
+                    "samples": []
+                },
+                {
+                    "name": "AMAZON.StopIntent",
+                    "samples": []
+                },
+                {
+                    "name": "AMAZON.NavigateHomeIntent",
+                    "samples": []
+                }
+            ],
+            "types": [
+                {
+                    "name": "LIST_OF_DEPARTMENTS",
+                    "values": [
+                        {
+                            "name": {
+                                "value": "Computer Science"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "Information Technology"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "Mechanical Engineering"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "Civil Engineering"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "Electronics and Communication"
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    }
+}
